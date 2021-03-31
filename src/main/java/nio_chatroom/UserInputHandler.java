@@ -1,4 +1,4 @@
-package client;
+package nio_chatroom;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -11,11 +11,8 @@ public class UserInputHandler implements Runnable{
         this.chatClient = chatClient;
     }
 
-
     @Override
     public void run() {
-        // 等待用户输入消息
-
         try {
             BufferedReader consoleReader =
                     new BufferedReader(new InputStreamReader(System.in));

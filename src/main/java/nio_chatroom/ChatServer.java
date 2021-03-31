@@ -1,4 +1,4 @@
-package Server;
+package nio_chatroom;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -125,7 +125,7 @@ public class ChatServer {
     }
 
     private boolean readyToQuit(String msg) {
-        return msg.equals(QUIT);
+        return QUIT.equals(msg);
     }
 
     private void close(Closeable closeable) {

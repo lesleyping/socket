@@ -1,4 +1,4 @@
-package client;
+package bio_chatroom.client;
 
 import java.io.*;
 import java.net.Socket;
