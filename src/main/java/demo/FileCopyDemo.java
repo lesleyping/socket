@@ -1,4 +1,4 @@
-package demo;
+package main.java.demo;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -13,11 +13,6 @@ import java.io.OutputStream;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 
-/**
- * 本地文件拷贝
- * @author lixiping <lixiping@kuaishou.com>
- * Created on 2021-03-31
- */
 
 interface FileCopyRunner {
     void copyFile(File source, File target);

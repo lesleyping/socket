@@ -1,4 +1,4 @@
-package bio_chatroom.server;
+package main.java.bio_chatroom.server;
 
 import java.io.BufferedWriter;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package nio_chatroom;
+package main.java.nio_chatroom;
 
 import java.io.Closeable;
 import java.io.IOException;
@@ -12,10 +12,6 @@ import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
 import java.util.Set;
 
-/**
- * @author lixiping <lixiping@kuaishou.com>
- * Created on 2021-03-31
- */
 public class ChatServer {
     private static final int DEFAULT_PORT = 8888;
     private static final String QUIT = "quit";
