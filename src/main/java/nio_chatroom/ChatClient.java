@@ -22,7 +22,7 @@ public class ChatClient {
     private ByteBuffer rBuffer = ByteBuffer.allocate(BUFFER);
     private ByteBuffer wBuffer = ByteBuffer.allocate(BUFFER);
     private Selector selector;
-    private Charset character = Charset.forName("UTF-8");
+    private Charset charset = Charset.forName("UTF-8");
 
     public ChatClient() {
         this(DEFAULT_SERVER_HOST, DEFAULT_SERVER_PORT);
@@ -57,12 +57,39 @@ public class ChatClient {
         }
         // READ 服务器转发消息
         else if(key.isReadable()) {
-
+            SocketChannel client = (SocketChannel) key.channel();
+            String msg = receive(client);
+            if (msg.isEmpty()) {
+                close(selector);
+            } else {
+                System.out.println(msg);
+            }
         }
     }
 
-    public void send(String msg) {
+    public String receive(SocketChannel client) throws IOException {
+        rBuffer.clear();
+        while (client.read(rBuffer) > 0);
+        rBuffer.flip();
+        return String.valueOf(charset.decode(rBuffer));
+    }
 
+    public void send(String msg) throws IOException {
+        if (msg.isEmpty()) {
+            return;
+        }
+
+        wBuffer.clear();
+        wBuffer.put(charset.encode(msg));
+        wBuffer.flip();
+        while (wBuffer.hasRemaining()) {
+            client.write(wBuffer);
+        }
+
+        // 检查用户是否准备退出
+        if (readyToQuit(msg)) {
+            close(selector);
+        }
     }
 
     private void start() {
