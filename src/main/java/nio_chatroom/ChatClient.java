@@ -22,7 +22,7 @@ public class ChatClient {
     private ByteBuffer rBuffer = ByteBuffer.allocate(BUFFER);
     private ByteBuffer wBuffer = ByteBuffer.allocate(BUFFER);
     private Selector selector;
-    private Charset character = Charset.forName("UTF-8");
+    private Charset charset = Charset.forName("UTF-8");
 
     public ChatClient() {
         this(DEFAULT_SERVER_HOST, DEFAULT_SERVER_PORT);
@@ -57,8 +57,22 @@ public class ChatClient {
         }
         // READ 服务器转发消息
         else if(key.isReadable()) {
-
+            SocketChannel client = (SocketChannel) key.channel();
+            String msg = receive(client);
+            if (msg.isEmpty()) {
+                // 服务器异常
+                close(selector);
+            } else {
+                System.out.println(msg);
+            }
         }
+    }
+
+    private String receive(SocketChannel client) throws IOException {
+        rBuffer.clear();
+        while (client.read(rBuffer) > 0);
+        rBuffer.flip();
+        return String.valueOf(charset.decode(rBuffer));
     }
 
     public void send(String msg) {
