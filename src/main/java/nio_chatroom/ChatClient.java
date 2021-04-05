@@ -75,8 +75,22 @@ public class ChatClient {
         return String.valueOf(charset.decode(rBuffer));
     }
 
-    public void send(String msg) {
+    public void send(String msg) throws IOException {
+        if (msg.isEmpty()) {
+            return;
+        }
 
+        wBuffer.clear();
+        wBuffer.put(charset.encode(msg));
+        wBuffer.flip();
+        while (wBuffer.hasRemaining()) {
+            client.write(wBuffer);
+        }
+
+        // 检查用户是否准备退出
+        if (readyToQuit(msg)) {
+            close(selector);
+        }
     }
 
     private void start() {
