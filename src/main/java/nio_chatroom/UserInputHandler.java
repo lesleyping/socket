@@ -1,8 +1,10 @@
-package nio_chatroom;
+package main.java.nio_chatroom;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+
+import main.java.nio_chatroom.ChatClient;
 
 public class UserInputHandler implements Runnable{
     private ChatClient chatClient;

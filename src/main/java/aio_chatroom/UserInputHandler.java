@@ -1,4 +1,4 @@
-package aio_chatroom;
+package main.java.aio_chatroom;
 
 import java.io.BufferedReader;
 import java.io.IOException;
